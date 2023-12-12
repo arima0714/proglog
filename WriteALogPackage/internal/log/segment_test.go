@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	api "github.com/arima0714/proglog/api/v1"
+	api "github.com/arima0714/proglog/WriteALogPackage/api/v1"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 )
@@ -33,7 +33,7 @@ func TestSegment(t *testing.T) {
 
 		got, err := s.Read(off)
 		require.NoError(t, err)
-		require.Equal(t, want.Value, got.value)
+		require.Equal(t, want.Value, got.Value)
 	}
 
 	_, err = s.Append(want)

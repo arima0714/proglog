@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 
-	api "github.com/arima0714/proglog/WriteALogPackage/api/v1"
+	api "github.com/arima0714/proglog/ServeRequestsWithgRPC/api/v1"
 )
 
 type Log struct {

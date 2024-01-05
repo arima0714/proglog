@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	api "github.com/arima0714/proglog/api/v1"
+	api "github.com/arima0714/proglog/ServeRequestsWithgRPC/api/v1"
 	"google.golang.org/grpc"
 )
 

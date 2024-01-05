@@ -5,7 +5,7 @@ import (
 
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
+	"google.golang.org/grpc/status"
 )
 
 type ErrOffsetOutOfRange struct {

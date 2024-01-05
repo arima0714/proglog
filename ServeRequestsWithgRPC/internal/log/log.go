@@ -24,7 +24,7 @@ type Log struct {
 
 func NewLog(dir string, c Config) (*Log, error) {
 	if c.Segment.MaxStoreBytes == 0 {
-		c.Segment.MaxIndexBytes = 1024
+		c.Segment.MaxStoreBytes = 1024
 	}
 	if c.Segment.MaxIndexBytes == 0 {
 		c.Segment.MaxIndexBytes = 1024

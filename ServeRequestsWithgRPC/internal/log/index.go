@@ -35,7 +35,8 @@ func newIndex(f *os.File, c Config) (*index, error) {
 	}
 	if idx.mmap, err = gommap.Map(
 		idx.file.Fd(),
-		gommap.PROT_READ|gommap.PROT_WRITE, gommap.MAP_SHARED,
+		gommap.PROT_READ|gommap.PROT_WRITE,
+		gommap.MAP_SHARED,
 	); err != nil {
 		return nil, err
 	}

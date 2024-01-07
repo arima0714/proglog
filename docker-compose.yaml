@@ -1,0 +1,9 @@
+version: '3'
+services:
+  proglog:
+    container_name: proglog
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/proglog

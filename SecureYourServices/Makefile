@@ -30,7 +30,7 @@ gencert:
 		-config=test/ca-config.json \
 		-profile=client \
 		-cn="nobody" \
-		test/client-csr.json | cfssljson -bare nobody-client
+		test/client-csr.json | cfssljson -bare client
 
 	mv *.pem *.csr ${CONFIG_PATH}
 

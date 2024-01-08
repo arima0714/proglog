@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"strings"
 	"time"
 
 	api "github.com/arima0714/proglog/ObserveYourServices/api/v1"
@@ -10,14 +9,14 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
-	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc/middleware/tags"
+	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 
 	"go.opencensus.io/plugin/ocgrpc"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/trace"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -52,7 +51,7 @@ type Authorizer interface {
 	Authorize(subject, object, action string) error
 }
 
-func NewGRPCServer(config *Config, grpcOpts ...grpc.ServerOption)(
+func NewGRPCServer(config *Config, grpcOpts ...grpc.ServerOption) (
 	*grpc.Server,
 	error,
 ) {
@@ -68,7 +67,7 @@ func NewGRPCServer(config *Config, grpcOpts ...grpc.ServerOption)(
 		),
 	}
 
-	trace.ApplyConfig(trace.Config{DefaultSamper: trace.AlwaysSample()})
+	trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
 	err := view.Register(ocgrpc.DefaultServerViews...)
 	if err != nil {
 		return nil, err

@@ -20,7 +20,8 @@ import (
 func TestServer(t *testing.T) {
 	for scenario, fn := range map[string]func(
 		t *testing.T,
-		client api.LogClient,
+		rootClient api.LogClient,
+		nobodyClient api.LogClient,
 		config *Config,
 	){
 		"produce/consume a message to/from the log succeeeds": testProduceConsume,
@@ -62,7 +63,7 @@ func setupTest(t *testing.T, fn func(*Config)) (
 			Server:   false,
 		})
 		require.NoError(t, err)
-		tlsCreds := credentials.NewwTLS(tlsConfig)
+		tlsCreds := credentials.NewTLS(tlsConfig)
 		opts := []grpc.DialOption{grpc.WithTransportCredentials(tlsCreds)}
 		conn, err := grpc.Dial(l.Addr().String(), opts...)
 		require.NoError(t, err)
@@ -247,7 +248,7 @@ func testUnauthorized(
 	}
 	gotCode, wantCode := status.Code(err), codes.PermissionDenied
 	if gotCode != wantCode {
-		t.Fatalf("got code: %d, want: %d", getCode, wantCode)
+		t.Fatalf("got code: %d, want: %d", gotCode, wantCode)
 	}
 	consume, err := client.Consume(ctx, &api.ConsumeRequest{
 		Offset: 0,

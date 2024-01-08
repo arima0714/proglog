@@ -3,6 +3,7 @@ module github.com/arima0714/proglog/SecureYourServices
 go 1.18
 
 require (
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/stretchr/testify v1.7.0
 	github.com/tysonmote/gommap v0.0.1
 	google.golang.org/genproto v0.0.0-20220706185917-7780775163c4

@@ -5,8 +5,10 @@ import (
 	"testing"
 	"time"
 
+	. "github.com/arima0714/ServerSideServiceDiscovery"
 	"github.com/hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
+	"github.com/travisjeffery/go-dynaport"
 )
 
 func TestMembership(t *testing.T) {

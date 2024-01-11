@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/arima0714/ServerSideServiceDiscovery"
+	. "github.com/arima0714/proglog/ServerSideServiceDiscovery/internal/discovery"
 	"github.com/hashicorp/serf/serf"
 	"github.com/stretchr/testify/require"
 	"github.com/travisjeffery/go-dynaport"

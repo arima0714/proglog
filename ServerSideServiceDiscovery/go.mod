@@ -1,4 +1,4 @@
-module github.com/travisjeffery/proglog
+module github.com/arima0714/proglog/ServerSideServiceDiscovery
 
 go 1.18
 
@@ -7,6 +7,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/hashicorp/serf v0.10.1
 	github.com/stretchr/testify v1.8.1
+	github.com/travisjeffery/go-dynaport v1.0.0
 	github.com/tysonmote/gommap v0.0.1
 	go.opencensus.io v0.24.0
 	go.uber.org/zap v1.24.0

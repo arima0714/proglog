@@ -12,7 +12,7 @@ import (
 )
 
 func TestMembership(t *testing.T) {
-	m, handler := setupmember(t, nil)
+	m, handler := setupMember(t, nil)
 	m, _ = setupMember(t, m)
 	m, _ = setupMember(t, m)
 

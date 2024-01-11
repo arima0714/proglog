@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	api "github.com/travisjeffery/proglog/api/v1"
+	api "github.com/arima0714/proglog/ServerSideServiceDiscovery/api/v1"
 	"google.golang.org/protobuf/proto"
 )
 

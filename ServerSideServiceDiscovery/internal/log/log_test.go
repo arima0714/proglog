@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
+	api "github.com/arima0714/proglog/ServerSideServiceDiscovery/api/v1"
 	"github.com/stretchr/testify/require"
-	api "github.com/travisjeffery/proglog/api/v1"
 	"google.golang.org/protobuf/proto"
 )
 

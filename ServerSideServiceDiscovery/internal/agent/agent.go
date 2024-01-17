@@ -7,11 +7,16 @@ import (
 	"net"
 	"sync"
 
-	"github.com/arima0714/proglog/ServerSideServiceDiscovery/internal/discovery"
-	"github.com/cloudflare/cfssl/auth"
 	"go.uber.org/zap"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+
+	api "github.com/arima0714/proglog/ServerSideServiceDiscovery/api/v1"
+	"github.com/arima0714/proglog/ServerSideServiceDiscovery/internal/auth"
+	"github.com/arima0714/proglog/ServerSideServiceDiscovery/internal/discovery"
+	"github.com/arima0714/proglog/ServerSideServiceDiscovery/internal/log"
+	"github.com/arima0714/proglog/ServerSideServiceDiscovery/internal/server"
 )
 
 type Agent struct {
@@ -122,11 +127,12 @@ func (a *Agent) setupMembership() error {
 	if err != nil {
 		return err
 	}
-	var opts []grpc.DialOption != nil {
+	var opts []grpc.DialOption
+	if a.Config.PeerTLSConfig != nil {
 		opts = append(opts, grpc.WithTransportCredentials(
 			credentials.NewTLS(a.Config.PeerTLSConfig),
 		),
-	)
+		)
 	}
 	conn, err := grpc.Dial(rpcAddr, opts...)
 	if err != nil {
@@ -135,6 +141,40 @@ func (a *Agent) setupMembership() error {
 	client := api.NewLogClient(conn)
 	a.replicator = &log.Replicator{
 		DialOptions: opts,
-		LocalServer : client, 
+		LocalServer: client,
 	}
+	a.membership, err = discovery.New(a.replicator, discovery.Config{
+		NodeName: a.Config.NodeName,
+		BindAddr: a.Config.BindAddr,
+		Tags: map[string]string{
+			"rpc_addr": rpcAddr,
+		},
+		StartJoinAddrs: a.Config.StartJoinAddrs,
+	})
+	return err
+}
+
+func (a *Agent) Shutdown() error {
+	a.shutdownLock.Lock()
+	defer a.shutdownLock.Unlock()
+	if a.shutdown {
+		return nil
+	}
+	a.shutdown = true
+
+	shutdown := []func() error{
+		a.membership.Leave,
+		a.replicator.Close,
+		func() error {
+			a.server.GracefulStop()
+			return nil
+		},
+		a.log.Close,
+	}
+	for _, fn := range shutdown {
+		if err := fn(); err != nil {
+			return err
+		}
+	}
+	return nil
 }

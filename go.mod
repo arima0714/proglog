@@ -18,7 +18,6 @@ require (
 )
 
 require (
-	github.com/arima0714/proglog/SecureYourServices v0.0.0-20240111142157-a336f029da20
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/stretchr/testify v1.8.4
 	github.com/tysonmote/gommap v0.0.2

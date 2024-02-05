@@ -3,7 +3,6 @@ package agent
 import (
 	"crypto/tls"
 	"fmt"
-	"log"
 	"net"
 	"sync"
 
@@ -116,7 +115,7 @@ func (a *Agent) setupServer() error {
 	}
 	go func() {
 		if err := a.server.Serve(ln); err != nil {
-			_ = a.shutdown()
+			_ = a.Shutdown()
 		}
 	}()
 	return nil
